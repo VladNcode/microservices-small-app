@@ -1,7 +1,10 @@
 const express = require('express');
 const { randomBytes } = require('crypto');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
@@ -22,6 +25,6 @@ app.post('/posts', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000 (posts)');
+app.listen(4000, () => {
+  console.log('Listening on port 4000 (posts)');
 });
