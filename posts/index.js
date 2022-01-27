@@ -3,6 +3,9 @@ const { randomBytes } = require('crypto');
 
 const app = express();
 
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
 const posts = {};
 
 app.get('/posts', (req, res) => {
@@ -10,9 +13,13 @@ app.get('/posts', (req, res) => {
 });
 app.post('/posts', (req, res) => {
   const id = randomBytes(4).toString('hex');
-  console.log(id);
+  const { title } = req.body;
+  posts[id] = { id, title };
 
-  res.send({});
+  res.status(201).json({
+    status: 'success',
+    data: { post: posts[id] },
+  });
 });
 
 app.listen(3000, () => {
