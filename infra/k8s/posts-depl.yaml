@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: posts
-          image: vladncode/posts
+          image: vladncode/posts@sha256:ac2c0e50c62595a5947ed35e3e9bc4c15bf4c80440699d214ca05d4db6de534c
