@@ -14,4 +14,18 @@ spec:
     spec:
       containers:
         - name: posts
-          image: vladncode/posts@sha256:ac2c0e50c62595a5947ed35e3e9bc4c15bf4c80440699d214ca05d4db6de534c
+          image: vladncode/posts
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+spec:
+  selector:
+    app: posts
+  type: ClusterIP
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
