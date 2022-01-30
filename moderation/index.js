@@ -13,7 +13,7 @@ app.post('/events', async (req, res) => {
     if (type === 'CommentCreated') {
       const statusUpd = data.content.includes('orange') ? 'rejected' : 'approved';
 
-      await axios.post('http://localhost:4005/events', {
+      await axios.post('http://event-bus-srv:4005/events', {
         type: 'CommentModerated',
         data: {
           id: data.id,
@@ -33,7 +33,7 @@ app.post('/events', async (req, res) => {
 app.listen(4003, async () => {
   try {
     console.log('Listening on port 4003 (moderation)');
-    let res = await axios.get('http://localhost:4005/events');
+    let res = await axios.get('http://event-bus-srv:4005/events');
 
     // console.log(res.data.length);
     let lastModeratedIndex = 0;
@@ -55,7 +55,7 @@ app.listen(4003, async () => {
         const { id, content, postId } = event.data;
         const statusUpd = content.includes('orange') ? 'rejected' : 'approved';
 
-        await axios.post('http://localhost:4005/events', {
+        await axios.post('http://event-bus-srv:4005/events', {
           type: 'CommentModerated',
           data: {
             id,
